@@ -22,11 +22,11 @@ This will give you options to display the splash either full screen or small scr
 
 ### Full Screen
 
-![Full screen](https://github.com/andymccall/bitriotdev/blob/main/assets/full_bitriotdev.png?raw=true)
+![Full screen](https://github.com/andymccall/bitriotdev/blob/main/assets/full_screenshot.png?raw=true)
 
 ### Small Screen
 
-![Small Screen](https://github.com/andymccall/bitriotdev/blob/main/assets/small_bitriotdev.png?raw=true)
+![Small Screen](https://github.com/andymccall/bitriotdev/blob/main/assets/small_screenshot.png?raw=true)
 
 ## Where to get help
 
