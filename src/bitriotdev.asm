@@ -37,6 +37,7 @@
 
 ; App includes
     include "src/includes/app/vdu_data.inc"
+    include "src/includes/app/menu.inc"
 
 start:
     macro_stack_push_all
@@ -67,10 +68,12 @@ start:
 
 app_loop:
 
+    call draw_menu
+
     MOSCALL $1E                         ; load IX with keymap address
 
     ; If the Escape key is pressed
-    ld a, (ix + $0E)    
+    ld a, (ix + $02)    
     bit 0, a
     jp nz, quit
 
@@ -98,12 +101,13 @@ app_loop:
 show_full_screen:
     call clear_screen
     call full_screen
-    call play_tone
+    call play_full_tone
     ret
 
 show_small_screen:
     call clear_screen
     call small_screen
+    call play_small_tone
     ret
 
 quit:
@@ -125,13 +129,13 @@ quit:
 quit_msg:
     .db "That was Bitriot.dev, impressive, huh??",13,10,0
 
-play_tone:
-    ld hl, tone
-    ld bc, end_tone - tone
+play_full_tone:
+    ld hl, full_tone
+    ld bc, end_full_tone - full_tone
     rst.lil $18
     ret 
 
-tone:  
+full_tone:  
     .db 23,0,$85
     .db 0
     .db 4,3
@@ -141,8 +145,25 @@ tone:
     .db 0,63
     .dw 1000
     .dw 1500
-end_tone:
+end_full_tone:
 
+play_small_tone:
+    ld hl, small_tone
+    ld bc, end_small_tone - small_tone
+    rst.lil $18
+    ret 
+
+small_tone:  
+    .db 23,0,$85
+    .db 0
+    .db 4,3
+
+    .db 23,0,$85
+    .db 0
+    .db 0,63
+    .dw 1500
+    .dw 1500
+end_small_tone:
 
 full_screen:
 
@@ -332,6 +353,44 @@ full_screen:
     ret
 
 small_screen:
+
+    push ix
+
+; Top line
+    ld a, VDU_COL_WHITE
+    call vdu_plot_set_fill
+    ld bc, 98
+    ld de, 98
+    ld ix, 420
+    ld iy, 98
+    call vdu_plot_line
+
+; Left line
+    ld a, VDU_COL_WHITE
+    call vdu_plot_set_fill
+    ld bc, 98
+    ld de, 98
+    ld ix, 98
+    ld iy, 256
+    call vdu_plot_line
+
+; Bottom line
+    ld a, VDU_COL_WHITE
+    call vdu_plot_set_fill
+    ld bc, 98
+    ld de, 256
+    ld ix, 420
+    ld iy, 256
+    call vdu_plot_line
+
+; Right line
+    ld a, VDU_COL_WHITE
+    call vdu_plot_set_fill
+    ld bc, 420
+    ld de, 98
+    ld ix, 420
+    ld iy, 256
+    call vdu_plot_line
 
 
 ; First column of long bars
