@@ -90,7 +90,7 @@ app_loop:
     ; If the C key is pressed
     ld a, (ix + $0A)
     bit 2, a
-    call nz, clear_screen
+    call nz, vdu_screen_clear
 
     call vdu_vblank
 
@@ -99,13 +99,13 @@ app_loop:
     jp app_loop
 
 show_full_screen:
-    call clear_screen
+    call vdu_screen_clear
     call full_screen
     call play_full_tone
     ret
 
 show_small_screen:
-    call clear_screen
+    call vdu_screen_clear
     call small_screen
     call play_small_tone
     ret
@@ -565,11 +565,4 @@ small_screen:
 
     pop ix
 
-    ret
-
-clear_screen:
-    ld a, quit_msg
-    call vdu_text_print
-    ld a, 16
-    rst.lil $10
     ret
