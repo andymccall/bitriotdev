@@ -5,7 +5,7 @@
 ![main](https://github.com/andymccall/bitriotdev/actions/workflows/makefile-main.yml/badge.svg?branch=main)
 ![develop](https://github.com/andymccall/bitriotdev/actions/workflows/makefile-develop.yml/badge.svg?branch=develop)
 
-This is a simple app that I've written in eZ80 assembly language for the Agon Light 2.  It will be used as a splash screen for any other applications or games that I write, and for building and improving my Agon Light 2 assemnbly API.
+This is a simple app that I've written in eZ80 assembly language for the Agon Light 2.  It will be used as a splash screen for any other applications or games that I write, and for building and improving my Agon Light 2 assembly API.
 
 ## Instructions
 
