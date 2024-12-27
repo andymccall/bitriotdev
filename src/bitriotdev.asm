@@ -134,8 +134,8 @@ quit:
     ret
 
 ; Variable to store the current screen mode
-screen_mode: .
-    db 0
+screen_mode:
+    .db 0
 
 quit_msg:
     .db "That was Bitriot.dev, impressive, huh??",13,10,0
