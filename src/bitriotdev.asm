@@ -46,6 +46,11 @@ start:
 
     call vdu_buffer_clear_all
 
+    ; Make a call to get the system variables
+    MOSCALL mos_sysvars
+    ld  a, (IX + sysvar_scrMode)
+    ld (screen_mode), a
+    
     ld a, VDU_MODE_512x384x64_60HZ
     call vdu_screen_set_mode
 
@@ -114,7 +119,7 @@ show_small_screen:
 
 quit:
 
-    ld hl, VDU_MODE_640x480x4_60HZ
+    ld a, (screen_mode)
     call vdu_screen_set_mode
 
     call vdu_cursor_flash
@@ -127,6 +132,10 @@ quit:
     ld hl,0
 
     ret
+
+; Variable to store the current screen mode
+screen_mode:
+    .db 0
 
 quit_msg:
     .db "That was Bitriot.dev, impressive, huh??",13,10,0
