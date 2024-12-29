@@ -51,22 +51,16 @@ start:
     ld  a, (IX + sysvar_scrMode)
     ld (screen_mode), a
     
+    ; Set the screen mode to 512x384x64_60HZ
     ld a, VDU_MODE_512x384x64_60HZ
     call vdu_screen_set_mode
 
+    ; Set the screen scaling to off
     ld a, VDU_SCALING_OFF
     call vdu_screen_set_scaling
 
+    ; Set the cursor to off
     call vdu_cursor_off
-
-    call vdu_vblank
-
-    call vdu_refresh
-
-    ;call play_tone
-
-    ld a, mos_getkbmap
-	rst.lil $08
 
     ; Sending a VDU byte stream containing the logo
     ld hl, vdu_logo_data
@@ -77,7 +71,7 @@ app_loop:
 
     call draw_menu
 
-    MOSCALL $1E                         ; load IX with keymap address
+    MOSCALL mos_getkbmap                         ; load IX with keymap address
 
     ; If the Escape key is pressed
     ld a, (ix + $02)    
